@@ -1,0 +1,76 @@
+{
+    "variables": {
+      "aws_region": "us-west-2",
+      "arch": "x86_64",
+      "encrypted": "false",
+      "iam_instance_profile": "",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "source_ami_id": "ami-03c983f9003cb9cd1",
+      "source_ami_owners": "137112412989",
+      "volume_type": "gp3",
+      "launch_block_device_mappings_volume_size": "20",
+      "ami_block_device_mappings": "20",
+      "kms_key_id": "",
+      "ami_name": "test-hardened-ami"
+    },
+    "builders": [
+      {
+        "type": "amazon-ebs",
+        "region": "{{user `aws_region`}}",
+        "source_ami": "{{user `source_ami_id`}}",
+        "ami_users": "{{user `ami_users`}}",
+        "snapshot_users": "{{user `ami_users`}}",
+        "instance_type": "{{user `instance_type`}}",
+        "launch_block_device_mappings": [
+          {
+            "device_name": "/dev/xvda",
+            "volume_type": "{{user `volume_type`}}",
+            "volume_size": "{{user `launch_block_device_mappings_volume_size`}}",
+            "delete_on_termination": true
+          }
+        ],
+        "ami_block_device_mappings": [
+          {
+            "device_name": "/dev/xvda",
+            "volume_type": "{{user `volume_type`}}",
+            "volume_size": "{{user `ami_block_device_mappings`}}",
+            "delete_on_termination": true
+          }
+        ],
+        "aws_polling": {
+          "delay_seconds": 30,
+          "max_attempts": 90
+        },
+        "ami_regions": "{{user `ami_regions`}}",
+        "ssh_username": "{{user `ssh_username`}}",
+        "ssh_interface": "{{user `ssh_interface`}}",
+        "temporary_security_group_source_cidrs": "{{user `temporary_security_group_source_cidrs`}}",
+        "security_group_id": "{{user `security_group_id`}}",
+        "associate_public_ip_address": "{{user `associate_public_ip_address`}}",
+        "ssh_pty": true,
+        "encrypt_boot": "{{user `encrypted`}}",
+        "kms_key_id": "{{user `kms_key_id`}}",
+        "run_tags": {
+          "creator": "DT AMI Builder"
+        },
+        "subnet_id": "{{user `subnet_id`}}",
+        "tags": {
+        },
+        "ami_name": "{{user `ami_name`}}",
+        "ami_description": "{{ user `ami_description` }}, {{ user `ami_component_description` }}",
+        "metadata_options": {
+          "http_tokens": "required"
+        },
+        "user_data_file": "{{user `user_data_file`}}"
+      }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "ansible/playbooks/ubuntu22-cis-hardening.yml",
+            "galaxy_file": "./requirements.yml",
+            "use_proxy": false
+        }
+    ]
+  }

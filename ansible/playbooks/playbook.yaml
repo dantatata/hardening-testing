@@ -1,0 +1,8 @@
+---
+- name: Update apt
+  hosts: all
+  become: true
+  tasks:
+    - name: Update the apt repository
+      apt:
+        update_cache: yes

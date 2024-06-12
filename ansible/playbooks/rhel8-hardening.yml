@@ -1,0 +1,10 @@
+---
+- hosts:
+    - localhost
+  roles:
+    - rhel8STIG   # apply STIG requirement controls
+  vars:
+    rhel8stig_bootloader_password_hash: 'changethispassword'
+    rhel_08_040123: false
+    rhel_08_040124: false
+    rhel_08_040125: false

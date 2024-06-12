@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - amazon2023CIS   # apply STIG requirement controls
+  vars:
+    amzn2023cis_rule_4_6_6: false
+    amzn2023cis_rule_1_9: false
+    setup_audit: true
+    run_audit: true
+    audit_only: true

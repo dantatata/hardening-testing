@@ -1,0 +1,15 @@
+---
+- name: Install required packages
+  dnf:
+    name:
+      - jq
+      - vim
+      - bc 
+      - wget
+    state: latest
+- name: Install required packages via pip
+  pip:
+    name:
+      - jmespath
+    state: latest
+    executable: "{{ ansible_pip_executable }}"
