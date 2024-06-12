@@ -1,6 +1,19 @@
+roles:
   - name: rhel8STIG
     src: https://github.com/ansible-lockdown/RHEL8-STIG
   - name: amazon2023CIS
     src: https://github.com/ansible-lockdown/AMAZON2023-CIS
   - name: ubuntu22CIS
     src: https://github.com/ansible-lockdown/UBUNTU22-CIS
+collections:
+  - name: community.general
+    source: https://github.com/ansible-collections/community.general
+    type: git
+
+  - name: community.crypto
+    source: https://github.com/ansible-collections/community.crypto
+    type: git
+
+  - name: ansible.posix
+    source: https://github.com/ansible-collections/ansible.posix
+    type: git
