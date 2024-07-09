@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: true
+  gather_facts: yes
   
   tasks:
     - name: Audit Ubuntu 22
@@ -15,3 +16,8 @@
         audit_only: true
         run_audit: true
         setup_audit: true
+    - name: Unsupported OS
+      debug:
+        msg: "This OS or OS version is not supported"
+      when: >
+        (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
