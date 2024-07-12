@@ -1,13 +1,13 @@
 ---
 - hosts: all
-  become: true
-  
+
   tasks:
     - name: Find result files
       find:
         paths: /opt/
         recurse: yes
         file_type: file
+        patterns: "*.json"
       register: found_files
     - name: Slurp file contents
       slurp:
