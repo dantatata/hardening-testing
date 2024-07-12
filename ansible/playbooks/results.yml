@@ -10,12 +10,14 @@
         file_type: file
         patterns: "*.json"
       register: found_files
+    - name: Get latest file
+      set_fact:
+        latest_file: "{{ found_files.files | sort(attribute='mtime', reverse=True) | first }}"
     - name: Slurp file contents
       slurp:
-        src: "{{ item.path }}"
-      loop: "{{ found_files.files }}"
-      register: slurped_files
+        src: "{{ latest_file.path }}"
+      register: slurped_file
     - name: Set facts
       set_fact:
-        "file_{{ item.item.path | basename }}": "{{ item.content | b64decode }}"
-      loop: "{{ slurped_files.results }}"
+        latest_results: "{{ slurped_file.content | b64decode }}"
+
