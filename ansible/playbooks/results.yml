@@ -1,10 +1,10 @@
 ---
-- hosts: localhost
+- hosts: all
   
   tasks:
     - name: Find result files
       find:
-        paths: /tmp/audit_results
+        paths: /opt/
         recurse: yes
         file_type: file
       register: found_files
