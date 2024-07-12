@@ -20,6 +20,5 @@
     - name: Set artifact
       set_stats:
         data:
-          artifacts:
-            - "{{ latest_file.path }}"
+          latest_results: "{{ slurped_file.content | b64decode }}"
 
