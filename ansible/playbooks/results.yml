@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  become: true
+  
+  tasks:
+    - name: Find result files
+      find:
+        paths: /tmp/audit_results
+        recurse: yes
+        file_type: file
+      register: found_files
+    - name: Slurp file contents
+      slurp:
+        src: "{{ item.path }}"
+      loop: "{{ found_files.files }}"
+      register: slurped_files
+    - name: Set facts
+      set_fact:
+        "file_{{ item.item.path | basename }}": "{{ item.content | b64decode }}"
+      loop: "{{ slurped_files.results }}"
