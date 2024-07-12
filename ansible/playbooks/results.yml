@@ -1,6 +1,7 @@
 ---
 - hosts: all
-
+  become: true
+  
   tasks:
     - name: Find result files
       find:
