@@ -16,6 +16,8 @@
         audit_only: true
         run_audit: true
         setup_audit: true
+        fetch_audit_files: true
+        audit_capture_files_dir: /tmp/audit_results
     - name: Find result files
       find:
         paths: /opt
