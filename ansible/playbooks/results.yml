@@ -17,7 +17,9 @@
       slurp:
         src: "{{ latest_file.path }}"
       register: slurped_file
-    - name: Set facts
-      set_fact:
-        latest_results: "{{ slurped_file.content | b64decode }}"
+    - name: Set artifact
+      set_stats:
+        data:
+          artifacts:
+            - "{{ latest_file.path }}"
 
