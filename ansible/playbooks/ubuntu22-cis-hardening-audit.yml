@@ -18,21 +18,6 @@
         setup_audit: true
         fetch_audit_files: true
         audit_capture_files_dir: /tmp/audit_results
-    - name: Find result files
-      find:
-        paths: /opt
-        recurse: yes
-        file_type: file
-      register: found_files
-    - name: Slurp file contents
-      slurp:
-        src: "{{ item.path }}"
-      loop: "{{ found_files.files }}"
-      register: slurped_files
-    - name: Set facts
-      set_fact:
-        "file_{{ item.item.path | basename }}": "{{ item.content | b64decode }}"
-      loop: "{{ slurped_files.results }}"
     - name: Unsupported OS
       debug:
         msg: "This OS or OS version is not supported"
