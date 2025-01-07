@@ -1,0 +1,15 @@
+---
+- name: SSM connectivity test
+  hosts: all
+  gather_facts: false
+  connection: community.aws.aws_ssm
+  vars:
+    ansible_aws_ssm_region: us-east-1
+  tasks:
+    - name: Hello world
+      ansible.builtin.shell: echo "hello world from $(hostname)"
+      register: hello_output
+    - name: Display output
+      debug:
+        var: hello_output.stdout
+      
