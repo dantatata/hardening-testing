@@ -21,3 +21,4 @@ collections:
   - name: community.aws
     source: https://github.com/ansible-collections/community.aws
     type: git
+    version: 9.0.0
