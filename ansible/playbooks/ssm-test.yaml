@@ -6,6 +6,7 @@
   connection: community.aws.aws_ssm
   vars:
     ansible_aws_ssm_region: us-east-1
+    ansible_remote_tmp: /tmp/.ansible/tmp
   tasks:
     - name: Hello world
       ansible.builtin.shell: echo "hello world from $(hostname)"
