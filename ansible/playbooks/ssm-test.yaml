@@ -1,6 +1,7 @@
 ---
 - name: SSM connectivity test
   hosts: all
+  remote_user: ec2-user
   gather_facts: false
   connection: community.aws.aws_ssm
   vars:
