@@ -1,11 +1,26 @@
 ---
 - hosts: all
-  become: true
-  roles:
-    - amazon2023CIS   # apply STIG requirement controls
+  remote_user: ssm-user
+  gather_facts: true
+  connection: community.aws.aws_ssm
   vars:
-    amzn2023cis_rule_4_6_6: false
-    amzn2023cis_rule_1_9: false
-    setup_audit: true
-    run_audit: true
-    audit_only: true
+    ansible_aws_ssm_region: us-east-1
+
+  tasks:
+    - name: Hello world
+      ansible.builtin.shell: echo "hello world from $(hostname)"
+      register: hello_output
+    - name: Display output
+      debug:
+        var: hello_output.stdout
+    - name: Audit AL 2023
+      include_role:
+        name: amazon2023CIS
+      vars:
+        amzn2023cis_rule_4_6_6: false
+        amzn2023cis_rule_1_9: false
+        audit_only: true
+        run_audit: true
+        setup_audit: true
+        fetch_audit_files: true
+        audit_capture_files_dir: /tmp/audit_results
