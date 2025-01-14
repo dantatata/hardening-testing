@@ -3,6 +3,7 @@
   remote_user: ssm-user
   gather_facts: true
   connection: community.aws.aws_ssm
+  become: true
   vars:
     ansible_aws_ssm_region: us-east-1
 
