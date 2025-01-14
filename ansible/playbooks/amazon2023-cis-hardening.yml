@@ -20,6 +20,7 @@
       vars:
         amzn2023cis_rule_4_6_6: false
         amzn2023cis_rule_1_9: false
+        amzn2023cis_rule_1_1_2_1 : false
         audit_only: true
         run_audit: true
         setup_audit: true
